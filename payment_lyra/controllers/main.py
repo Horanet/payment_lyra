@@ -34,19 +34,25 @@ class LyraController(http.Controller):
 
         return return_url
 
-    @http.route('/payment/lyra/return', type='http', auth='none', methods=['POST', 'GET'], csrf=False)
-    def lyra_return(self, **post):
-        _logger.info('Lyra Collect: entering form_feedback with post data %s', pprint.pformat(post))
-
+    @http.route(
+        _return_url, type='http', auth='public', methods=['POST', 'GET'], csrf=False,
+        save_session=False
+    )
+    def lyra_return_from_checkout(self, **post):
         # Check payment result and create transaction.
+        _logger.info('Lyra Collect: entering _from_notification with data %s', pprint.pformat(post))
+
         result = request.env['payment.transaction'].sudo().form_feedback(post, 'lyra')
         return_url = self._get_return_url(result, **post)
         return werkzeug.utils.redirect(return_url)
 
-    @http.route('/payment/lyra/ipn', type='http', auth='none', methods=['POST'], csrf=False)
+    @http.route(
+        _notify_url, type='http', auth='none', methods=['POST'], csrf=False,
+        save_session=False
+    )
     def lyra_ipn(self, **post):
+        # Check payment result and create transaction.
         _logger.info('Lyra Collect: entering IPN form_feedback with post data %s', pprint.pformat(post))
 
-        # Check payment result and create transaction.
         result = request.env['payment.transaction'].sudo().form_feedback(post, 'lyra')
         return 'Accepted payment, order has been updated.' if result else 'Payment failure, order has been cancelled.'
