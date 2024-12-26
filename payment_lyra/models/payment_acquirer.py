@@ -53,12 +53,12 @@ class AcquirerLyra(models.Model):
     def _lyra_compute_multi_warning(self):
         for acquirer in self:
             acquirer.lyra_multi_warning = (constants.LYRA_PLUGIN_FEATURES.get('restrictmulti') == True) if (acquirer.provider == 'lyramulti') else False
-            
+
     def lyra_get_doc_field_value():
         docs_uri = constants.LYRA_ONLINE_DOC_URI
         doc_field_html = ''
         for lang, doc_uri in docs_uri.items():
-            html = '<a href="%s%s">%s</a> '%(doc_uri,'odoo16/sitemap.html', constants.LYRA_DOCUMENTATION.get(lang))
+            html = '<a href="%s%s">%s</a> '%(doc_uri,'odoo/sitemap.html', constants.LYRA_DOCUMENTATION.get(lang))
             doc_field_html += html
 
         return doc_field_html

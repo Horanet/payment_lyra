@@ -1,7 +1,7 @@
 Lyra Collect best plugin for Odoo
 ===================================================
 
-This Lyra Collect plugin is for Odoo > v 10 - 14
+This Lyra Collect plugin is for Odoo v11
 
 ## Install addon:
 
@@ -9,5 +9,5 @@ This Lyra Collect plugin is for Odoo > v 10 - 14
 
 
 ```bash
-pip install "git+https://github.com/Horanet/payment_lyra.git@main#egg=odoo10-14-addon-payment-lyra&subdirectory=setup/payment_lyra"
+pip install "git+https://github.com/Horanet/payment_lyra.git@11.0#egg=odoo11-addon-payment-lyra&subdirectory=setup/payment_lyra"
 ```
